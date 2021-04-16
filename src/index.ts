@@ -42,13 +42,42 @@ renderer.onBeforeDraw(() => {
   });
 });
 
+let time = Date.now();
+const frameTimes = [];
+
+const drawText = (text: string, layer: Layer, startingPoint: Vector) => {
+  for (let i = 0; i < text.length; i++) {
+    const letter = text[i];
+    const letterTile = new Tile({
+      char: letter,
+      pos: Vector.add(startingPoint, new Vector(i, 0)),
+    });
+    layer.draw(letterTile);
+  }
+};
+
 const draw = () => {
   backgroundTiles.forEach((tile) => layers.background.draw(tile));
   layers.actor.draw(player);
   renderer.commit();
-
+  const frameTime = Date.now() - time;
+  // frameTimes.push(frameTime);
+  drawText(
+    frameTime.toString().slice(0, 4),
+    layers.background,
+    new Vector(10, 0),
+  );
+  // console.log("Frame time", frameTimes[frameTimes.length - 1]);
+  time = Date.now();
   requestAnimationFrame(draw);
 };
+
+setInterval(() => {
+  let sum = 0;
+  const frames = frameTimes.length;
+  while (frameTimes.length > 0) sum += frameTimes.pop();
+  console.log("Average frame time", sum / frames);
+}, 1000);
 
 draw();
 

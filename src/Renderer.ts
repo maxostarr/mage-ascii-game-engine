@@ -7,7 +7,7 @@ export default class Renderer {
   private size: number = 30;
   private beforeDraw: () => void = () => {};
 
-  frames:number = 0;
+  frames: number = 0;
 
   setSize(n: number) {
     this.size = n;
@@ -36,16 +36,18 @@ export default class Renderer {
       let layerEl = this.layerElements[name];
 
       if (!layerEl) {
-        layerEl = document.createElement('div');
-        layerEl.classList.add('asc-engine-layer');
+        layerEl = document.createElement("div");
+        layerEl.classList.add("asc-engine-layer");
         layerEl.style.fontSize = `${this.size}px`;
-        layerEl.style.top = `${layer.pos.y * this.size}px`;
-        layerEl.style.left = `${layer.pos.x * this.size / 2}px`;
-        layerEl.style.height = `${layer.size.y * this.size}px`;
-        layerEl.style.width = `${layer.size.x * this.size / 2}px`;
+        layerEl.style.top = `${layer.pos.y}em`;
+        layerEl.style.left = `${layer.pos.x}ex`;
+        layerEl.style.height = `${layer.size.y}em`;
+        layerEl.style.width = `${layer.size.x}ex`;
         layerEl.style.zIndex = layer.z.toString();
 
-        document.getElementById('asc-engine-layer-container').appendChild(layerEl);
+        document
+          .getElementById("asc-engine-layer-container")
+          .appendChild(layerEl);
         this.layerElements[name] = layerEl;
       }
 
@@ -53,22 +55,22 @@ export default class Renderer {
         let opEl = document.getElementById(`asc-engine-tile-${op.tile.id}`);
 
         if (!opEl) {
-          opEl = document.createElement('div');
-          opEl.classList.add('asc-engine-tile');
+          opEl = document.createElement("div");
+          opEl.classList.add("asc-engine-tile");
           opEl.id = `asc-engine-tile-${op.tile.id}`;
 
           layerEl.appendChild(opEl);
         }
 
         if (op.isVisible) {
-          opEl.innerHTML = op.char.replace(/ /g, '&nbsp;');
+          opEl.innerHTML = op.char.replace(/ /g, "&nbsp;");
           opEl.style.color = op.color.toCssString();
           opEl.style.backgroundColor = op.background.toCssString();
-          opEl.style.top = `${op.pos.y * this.size}px`;
-          opEl.style.left = `${op.pos.x * this.size / 2}px`;
-          opEl.style.display = 'block';
+          opEl.style.top = `${op.pos.y}em`;
+          opEl.style.left = `${op.pos.x}ex`;
+          opEl.style.display = "block";
         } else {
-          opEl.style.display = 'none';
+          opEl.style.display = "none";
         }
       }
 

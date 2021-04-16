@@ -61,7 +61,7 @@ const draw = () => {
   layers.actor.draw(player);
   renderer.commit();
   const frameTime = Date.now() - time;
-  // frameTimes.push(frameTime);
+  frameTimes.push(frameTime);
   drawText(
     frameTime.toString().slice(0, 4),
     layers.background,
@@ -78,7 +78,7 @@ setInterval(() => {
   while (frameTimes.length > 0) sum += frameTimes.pop();
   console.log("Average frame time", sum / frames);
 }, 1000);
-
+// average frame time with JS caled size 150 - 210
 draw();
 
 document.addEventListener("keydown", (e) => {

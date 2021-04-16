@@ -39,10 +39,10 @@ export default class Renderer {
         layerEl = document.createElement("div");
         layerEl.classList.add("asc-engine-layer");
         layerEl.style.fontSize = `${this.size}px`;
-        layerEl.style.top = `${layer.pos.y * this.size}px`;
-        layerEl.style.left = `${(layer.pos.x * this.size) / 2}px`;
-        layerEl.style.height = `${layer.size.y * this.size}px`;
-        layerEl.style.width = `${(layer.size.x * this.size) / 2}px`;
+        layerEl.style.top = `${layer.pos.y}em`;
+        layerEl.style.left = `${(layer.pos.x)}ex`;
+        layerEl.style.height = `${layer.size.y}em`;
+        layerEl.style.width = `${layer.size.x}ex`;
         layerEl.style.zIndex = layer.z.toString();
 
         document
@@ -66,8 +66,8 @@ export default class Renderer {
           opEl.innerHTML = op.char.replace(/ /g, "&nbsp;");
           opEl.style.color = op.color.toCssString();
           opEl.style.backgroundColor = op.background.toCssString();
-          opEl.style.top = `${op.pos.y * this.size}px`;
-          opEl.style.left = `${(op.pos.x * this.size) / 2}px`;
+          opEl.style.top = `${op.pos.y}em`;
+          opEl.style.left = `${(op.pos.x )}ex`;
           opEl.style.display = "block";
         } else {
           opEl.style.display = "none";

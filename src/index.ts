@@ -13,64 +13,62 @@ const layers: Record<string, Layer> = {
 };
 
 const player = new Tile({
-  background: new Color(0,0,0,0),
-  char: '@',
+  background: new Color(0, 0, 0, 0),
+  char: "@",
   color: new Color(255, 0, 0),
   isVisible: true,
-  pos: Vector.Zero()
+  pos: Vector.Zero(),
 });
 
-const backgroundTiles = Array.from({ length: WIDTH*HEIGHT }, (_, i) => {
-  const x = i % WIDTH;1
+const backgroundTiles = Array.from({ length: WIDTH * HEIGHT }, (_, i) => {
+  const x = i % WIDTH;
   const y = Math.floor(i / WIDTH);
 
   return new Tile({
-    char: '.',
-    pos: new Vector(x, y)
+    char: ".",
+    pos: new Vector(x, y),
   });
 });
 
 const renderer = new Renderer();
 renderer.setSize(35);
-renderer.addLayer('background', layers.background);
-renderer.addLayer('actor', layers.actor);
-
+renderer.addLayer("background", layers.background);
+renderer.addLayer("actor", layers.actor);
 
 renderer.onBeforeDraw(() => {
-  layers.background.operations.forEach(op => {
+  layers.background.operations.forEach((op) => {
     const newAlpha = (Math.sin(op.pos.x / op.pos.y + 5) + 1) / 2;
     op.color.a = newAlpha;
-  })
-})
-
+  });
+});
 
 const draw = () => {
-  backgroundTiles.forEach(tile => layers.background.draw(tile));
+  backgroundTiles.forEach((tile) => layers.background.draw(tile));
   layers.actor.draw(player);
   renderer.commit();
 
   requestAnimationFrame(draw);
-}
+};
 
 draw();
 
-document.addEventListener('keydown', e => {
+document.addEventListener("keydown", (e) => {
   switch (e.key) {
-    case 'ArrowUp': {
+    case "ArrowUp": {
       player.pos.add(new Vector(0, -1));
       break;
     }
-    case 'ArrowDown': {
+    case "ArrowDown": {
       player.pos.add(new Vector(0, 1));
       break;
     }
-    case 'ArrowLeft': {
+    case "ArrowLeft": {
       player.pos.add(new Vector(-1, 0));
       break;
     }
-    case 'ArrowRight': {
+    case "ArrowRight": {
       player.pos.add(new Vector(1, 0));
       break;
     }
   }
-})
+});
